@@ -1,0 +1,3 @@
+Use this to begin your project
+
+It's the 6.2.6 version of Synfony, with TailwindCss ready to use...
