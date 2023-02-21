@@ -1,6 +1,13 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
 
+    # use tailwind css on forms
+    # form_themes: [ 'form_themes/custome_layout.html.twig' ]
+    form_themes: [ 
+        # 'tailwind_2_layout.html.twig' 
+        'zsf-tailwind-forms-themes/custome_layout.html.twig'
+    ]
+
 when@test:
     twig:
         strict_variables: true
