@@ -10,8 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CouponRepository::class)]
 #[ORM\Table(name: 'coupons')] // rename table whene creating migration
-class Coupon
-{
+class Coupon {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -48,110 +47,104 @@ class Coupon
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updated_at = null;
 
-    public function __construct()
-    {
+
+    ### => conctructor
+    public function __construct() {
         $this->orders = new ArrayCollection();
     }
 
-    public function getId(): ?int
-    {
+
+    ### => for $id
+    public function getId(): ?int {
         return $this->id;
     }
 
-    public function getCode(): ?string
-    {
+    ### => for $code
+    public function getCode(): ?string {
         return $this->code;
     }
 
-    public function setCode(string $code): self
-    {
+    public function setCode(string $code): self {
         $this->code = $code;
 
         return $this;
     }
 
-    public function getDescription(): ?string
-    {
+    ### => for $description
+    public function getDescription(): ?string {
         return $this->description;
     }
 
-    public function setDescription(string $description): self
-    {
+    public function setDescription(string $description): self {
         $this->description = $description;
 
         return $this;
     }
 
-    public function getDiscount(): ?int
-    {
+    ### => for $discount
+    public function getDiscount(): ?int {
         return $this->discount;
     }
 
-    public function setDiscount(int $discount): self
-    {
+    public function setDiscount(int $discount): self {
         $this->discount = $discount;
 
         return $this;
     }
 
-    public function getMaxUsage(): ?int
-    {
+    ### => for $max_usage
+    public function getMaxUsage(): ?int {
         return $this->max_usage;
     }
 
-    public function setMaxUsage(int $max_usage): self
-    {
+    public function setMaxUsage(int $max_usage): self {
         $this->max_usage = $max_usage;
 
         return $this;
     }
 
-    public function getValidityDate(): ?\DateTimeInterface
-    {
+    ### => for $validity
+    public function getValidityDate(): ?\DateTimeInterface {
         return $this->validity_date;
     }
 
-    public function setValidityDate(\DateTimeInterface $validity_date): self
-    {
+    public function setValidityDate(\DateTimeInterface $validity_date): self {
         $this->validity_date = $validity_date;
 
         return $this;
     }
 
-    public function isIsValid(): ?bool
-    {
+    ### => for $is_valid
+    public function isIsValid(): ?bool {
         return $this->is_valid;
     }
 
-    public function setIsValid(bool $is_valid): self
-    {
+    public function setIsValid(bool $is_valid): self {
         $this->is_valid = $is_valid;
 
         return $this;
     }
 
-    public function getCouponType(): ?CouponType
-    {
+    ### => for $coupon_types
+    public function getCouponType(): ?CouponType {
         return $this->coupons_types;
     }
 
-    public function setCouponType(?CouponType $coupons_types): self
-    {
+    public function setCouponType(?CouponType $coupons_types): self {
         $this->coupons_types = $coupons_types;
 
         return $this;
     }
 
+    ### => for $orders
     /**
      * @return Collection<int, Order>
      */
-    public function getOrders(): Collection
-    {
+    public function getOrders(): Collection {
         return $this->orders;
     }
 
-    public function addOrder(Order $order): self
-    {
+    public function addOrder(Order $order): self {
         if (!$this->orders->contains($order)) {
             $this->orders->add($order);
             $order->setCoupon($this);
@@ -160,8 +153,7 @@ class Coupon
         return $this;
     }
 
-    public function removeOrder(Order $order): self
-    {
+    public function removeOrder(Order $order): self {
         if ($this->orders->removeElement($order)) {
             // set the owning side to null (unless already changed)
             if ($order->getCoupon() === $this) {
@@ -172,8 +164,8 @@ class Coupon
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
+    ### => for $created_at
+    public function getCreatedAt(): ?\DateTimeImmutable {
         return $this->created_at;
     }
 
@@ -184,13 +176,12 @@ class Coupon
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeImmutable
-    {
+    ### => for $updated_at
+    public function getUpdatedAt(): ?\DateTimeImmutable {
         return $this->updated_at;
     }
 
-    public function setUpdatedAt(?\DateTimeImmutable $updated_at): self
-    {
+    public function setUpdatedAt(?\DateTimeImmutable $updated_at): self {
         $this->updated_at = $updated_at;
 
         return $this;

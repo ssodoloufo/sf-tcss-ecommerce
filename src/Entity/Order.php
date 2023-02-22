@@ -9,8 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: OrderRepository::class)]
 #[ORM\Table(name: 'orders')]
-class Order
-{
+class Order {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -26,63 +25,91 @@ class Order
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
+    #[ORM\OneToMany(mappedBy: 'order_id', targetEntity: OrderDetail::class, orphanRemoval: true)]
+    private Collection $orderDetails;
+
     #[ORM\Column( options:['default' => 'CURRENT_TIMESTAMP'] )]
     private ?\DateTimeImmutable $created_at = null;
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updated_at = null;
 
-    #[ORM\OneToMany(mappedBy: 'order_id', targetEntity: OrderDetail::class, orphanRemoval: true)]
-    private Collection $orderDetails;
 
-    public function __construct()
-    {
+    ### => constructor
+    public function __construct() {
         $this->orderDetails = new ArrayCollection();
+        $this->created_at = new \DateTimeImmutable();
     }
 
-    public function getId(): ?int
-    {
+
+    ### => for $id
+    public function getId(): ?int {
         return $this->id;
     }
 
-    public function getReference(): ?string
-    {
+    ### => for $reference
+    public function getReference(): ?string {
         return $this->reference;
     }
 
-    public function setReference(string $reference): self
-    {
+    public function setReference(string $reference): self {
         $this->reference = $reference;
 
         return $this;
     }
 
-    public function getCoupon(): ?Coupon
-    {
+    ### => for $coupon
+    public function getCoupon(): ?Coupon {
         return $this->coupon;
     }
 
-    public function setCoupon(?Coupon $coupon): self
-    {
+    public function setCoupon(?Coupon $coupon): self {
         $this->coupon = $coupon;
 
         return $this;
     }
 
-    public function getUser(): ?User
-    {
+    ### => for $user
+    public function getUser(): ?User {
         return $this->user;
     }
 
-    public function setUser(?User $user): self
-    {
+    public function setUser(?User $user): self {
         $this->user = $user;
 
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
+    ### => for $oerder_details
+    /**
+     * @return Collection<int, OrderDetail>
+     */
+    public function getOrderDetails(): Collection {
+        return $this->orderDetails;
+    }
+
+    public function addOrderDetail(OrderDetail $orderDetail): self {
+        if (!$this->orderDetails->contains($orderDetail)) {
+            $this->orderDetails->add($orderDetail);
+            $orderDetail->setOrderId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderDetail(OrderDetail $orderDetail): self {
+        if ($this->orderDetails->removeElement($orderDetail)) {
+            // set the owning side to null (unless already changed)
+            if ($orderDetail->getOrderId() === $this) {
+                $orderDetail->setOrderId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    ### => for $created_at
+    public function getCreatedAt(): ?\DateTimeImmutable {
         return $this->created_at;
     }
 
@@ -93,44 +120,13 @@ class Order
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeImmutable
-    {
+    ### => for $updated_at
+    public function getUpdatedAt(): ?\DateTimeImmutable {
         return $this->updated_at;
     }
 
-    public function setUpdatedAt(?\DateTimeImmutable $updated_at): self
-    {
+    public function setUpdatedAt(?\DateTimeImmutable $updated_at): self {
         $this->updated_at = $updated_at;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, OrderDetail>
-     */
-    public function getOrderDetails(): Collection
-    {
-        return $this->orderDetails;
-    }
-
-    public function addOrderDetail(OrderDetail $orderDetail): self
-    {
-        if (!$this->orderDetails->contains($orderDetail)) {
-            $this->orderDetails->add($orderDetail);
-            $orderDetail->setOrderId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOrderDetail(OrderDetail $orderDetail): self
-    {
-        if ($this->orderDetails->removeElement($orderDetail)) {
-            // set the owning side to null (unless already changed)
-            if ($orderDetail->getOrderId() === $this) {
-                $orderDetail->setOrderId(null);
-            }
-        }
 
         return $this;
     }

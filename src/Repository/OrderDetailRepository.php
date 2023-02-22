@@ -13,16 +13,13 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method OrderDetail|null findOneBy(array $criteria, array $orderBy = null)
  * @method OrderDetail[]    findAll()
  * @method OrderDetail[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
-class OrderDetailRepository extends ServiceEntityRepository
-{
-    public function __construct(ManagerRegistry $registry)
-    {
+*/
+class OrderDetailRepository extends ServiceEntityRepository {
+    public function __construct(ManagerRegistry $registry) {
         parent::__construct($registry, OrderDetail::class);
     }
 
-    public function save(OrderDetail $entity, bool $flush = false): void
-    {
+    public function save(OrderDetail $entity, bool $flush = false): void {
         $this->getEntityManager()->persist($entity);
 
         if ($flush) {
@@ -30,8 +27,7 @@ class OrderDetailRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(OrderDetail $entity, bool $flush = false): void
-    {
+    public function remove(OrderDetail $entity, bool $flush = false): void {
         $this->getEntityManager()->remove($entity);
 
         if ($flush) {
@@ -41,9 +37,8 @@ class OrderDetailRepository extends ServiceEntityRepository
 
 //    /**
 //     * @return OrderDetail[] Returns an array of OrderDetail objects
-//     */
-//    public function findByExampleField($value): array
-//    {
+//    */
+//    public function findByExampleField($value): array {
 //        return $this->createQueryBuilder('o')
 //            ->andWhere('o.exampleField = :val')
 //            ->setParameter('val', $value)
@@ -54,8 +49,7 @@ class OrderDetailRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?OrderDetail
-//    {
+//    public function findOneBySomeField($value): ?OrderDetail {
 //        return $this->createQueryBuilder('o')
 //            ->andWhere('o.exampleField = :val')
 //            ->setParameter('val', $value)

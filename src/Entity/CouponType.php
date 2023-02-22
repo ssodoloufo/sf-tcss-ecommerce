@@ -9,8 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CouponTypeRepository::class)]
 #[ORM\Table(name: 'coupons_types')] // rename table whene creating migration
-class CouponType
-{
+class CouponType {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -22,38 +21,38 @@ class CouponType
     #[ORM\OneToMany(mappedBy: 'coupon_type', targetEntity: Coupon::class, orphanRemoval: true)]
     private Collection $coupons;
 
-    public function __construct()
-    {
+
+    ### => constructor
+    public function __construct() {
         $this->coupons = new ArrayCollection();
     }
+    
 
-    public function getId(): ?int
-    {
+    ### => for $id
+    public function getId(): ?int {
         return $this->id;
     }
 
-    public function getName(): ?string
-    {
+    ### => for $name
+    public function getName(): ?string {
         return $this->name;
     }
 
-    public function setName(string $name): self
-    {
+    public function setName(string $name): self {
         $this->name = $name;
 
         return $this;
     }
 
+    ### => for $coupon
     /**
      * @return Collection<int, Coupon>
      */
-    public function getCoupons(): Collection
-    {
+    public function getCoupons(): Collection {
         return $this->coupons;
     }
 
-    public function addCoupon(Coupon $coupon): self
-    {
+    public function addCoupon(Coupon $coupon): self {
         if (!$this->coupons->contains($coupon)) {
             $this->coupons->add($coupon);
             $coupon->setCouponType($this);
@@ -62,8 +61,7 @@ class CouponType
         return $this;
     }
 
-    public function removeCoupon(Coupon $coupon): self
-    {
+    public function removeCoupon(Coupon $coupon): self {
         if ($this->coupons->removeElement($coupon)) {
             // set the owning side to null (unless already changed)
             if ($coupon->getCouponType() === $this) {

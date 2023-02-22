@@ -13,16 +13,13 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Coupon|null findOneBy(array $criteria, array $orderBy = null)
  * @method Coupon[]    findAll()
  * @method Coupon[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
-class CouponRepository extends ServiceEntityRepository
-{
-    public function __construct(ManagerRegistry $registry)
-    {
+*/
+class CouponRepository extends ServiceEntityRepository {
+    public function __construct(ManagerRegistry $registry) {
         parent::__construct($registry, Coupon::class);
     }
 
-    public function save(Coupon $entity, bool $flush = false): void
-    {
+    public function save(Coupon $entity, bool $flush = false): void {
         $this->getEntityManager()->persist($entity);
 
         if ($flush) {
@@ -30,8 +27,7 @@ class CouponRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Coupon $entity, bool $flush = false): void
-    {
+    public function remove(Coupon $entity, bool $flush = false): void {
         $this->getEntityManager()->remove($entity);
 
         if ($flush) {
@@ -41,9 +37,8 @@ class CouponRepository extends ServiceEntityRepository
 
 //    /**
 //     * @return Coupon[] Returns an array of Coupon objects
-//     */
-//    public function findByExampleField($value): array
-//    {
+//    */
+//    public function findByExampleField($value): array {
 //        return $this->createQueryBuilder('c')
 //            ->andWhere('c.exampleField = :val')
 //            ->setParameter('val', $value)
@@ -54,8 +49,7 @@ class CouponRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Coupon
-//    {
+//    public function findOneBySomeField($value): ?Coupon {
 //        return $this->createQueryBuilder('c')
 //            ->andWhere('c.exampleField = :val')
 //            ->setParameter('val', $value)

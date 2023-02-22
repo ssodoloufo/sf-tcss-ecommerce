@@ -10,8 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 #[ORM\Table(name: 'products')] // rename table whene creating migration
-class Product
-{
+class Product {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -36,135 +35,107 @@ class Product
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
 
-    #[ORM\Column( options:['default' => 'CURRENT_TIMESTAMP'] )]
-    private ?\DateTimeImmutable $created_at = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $updated_at = null;
-
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: Image::class, orphanRemoval: true)]
     private Collection $images;
 
     #[ORM\OneToMany(mappedBy: 'product_id', targetEntity: OrderDetail::class)]
     private Collection $orderDetails;
 
-    public function __construct()
-    {
+    #[ORM\Column( options:['default' => 'CURRENT_TIMESTAMP'] )]
+    private ?\DateTimeImmutable $created_at = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updated_at = null;
+
+
+    ### => constructor
+    public function __construct() {
         $this->images = new ArrayCollection();
         $this->orderDetails = new ArrayCollection();
+        $this->created_at = new \DateTimeImmutable();
     }
 
-    public function getId(): ?int
-    {
+
+    ### -> for $id
+    public function getId(): ?int {
         return $this->id;
     }
 
-    public function getName(): ?string
-    {
+    ### -> for $name
+    public function getName(): ?string {
         return $this->name;
     }
 
-    public function setName(string $name): self
-    {
+    public function setName(string $name): self {
         $this->name = $name;
 
         return $this;
     }
 
-    public function getSlug(): ?string
-    {
+    ### -> for $slug
+    public function getSlug(): ?string {
         return $this->slug;
     }
 
-    public function setSlug(string $slug): self
-    {
+    public function setSlug(string $slug): self {
         $this->slug = $slug;
 
         return $this;
     }
 
-    public function getDescription(): ?string
-    {
+    ### -> for $description
+    public function getDescription(): ?string {
         return $this->description;
     }
 
-    public function setDescription(?string $description): self
-    {
+    public function setDescription(?string $description): self {
         $this->description = $description;
 
         return $this;
     }
 
-    public function getPrice(): ?int
-    {
+    ### -> for $price
+    public function getPrice(): ?int {
         return $this->price;
     }
 
-    public function setPrice(int $price): self
-    {
+    public function setPrice(int $price): self {
         $this->price = $price;
 
         return $this;
     }
 
-    public function getStock(): ?int
-    {
+    ### -> for $stock
+    public function getStock(): ?int {
         return $this->stock;
     }
 
-    public function setStock(int $stock): self
-    {
+    public function setStock(int $stock): self {
         $this->stock = $stock;
 
         return $this;
     }
 
-    public function getCategory(): ?Category
-    {
+    ### -> for $category
+    public function getCategory(): ?Category {
         return $this->category;
     }
 
-    public function setCategory(?Category $category): self
-    {
+    public function setCategory(?Category $category): self {
         $this->category = $category;
 
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->created_at;
-    }
-
-    public function setCreatedAt(\DateTimeImmutable $created_at): self
-    {
-        $this->created_at = $created_at;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeImmutable
-    {
-        return $this->updated_at;
-    }
-
-    public function setUpdatedAt(?\DateTimeImmutable $updated_at): self
-    {
-        $this->updated_at = $updated_at;
-
-        return $this;
-    }
-
+    ### -> for $images
     /**
      * @return Collection<int, Image>
      */
-    public function getImages(): Collection
-    {
+    public function getImages(): Collection {
         return $this->images;
     }
 
-    public function addImage(Image $image): self
-    {
+    public function addImage(Image $image): self {
         if (!$this->images->contains($image)) {
             $this->images->add($image);
             $image->setProduct($this);
@@ -173,8 +144,7 @@ class Product
         return $this;
     }
 
-    public function removeImage(Image $image): self
-    {
+    public function removeImage(Image $image): self {
         if ($this->images->removeElement($image)) {
             // set the owning side to null (unless already changed)
             if ($image->getProduct() === $this) {
@@ -185,16 +155,15 @@ class Product
         return $this;
     }
 
+    ### -> for $order_details
     /**
      * @return Collection<int, OrderDetail>
      */
-    public function getOrderDetails(): Collection
-    {
+    public function getOrderDetails(): Collection {
         return $this->orderDetails;
     }
 
-    public function addOrderDetail(OrderDetail $orderDetail): self
-    {
+    public function addOrderDetail(OrderDetail $orderDetail): self {
         if (!$this->orderDetails->contains($orderDetail)) {
             $this->orderDetails->add($orderDetail);
             $orderDetail->setProductId($this);
@@ -203,14 +172,35 @@ class Product
         return $this;
     }
 
-    public function removeOrderDetail(OrderDetail $orderDetail): self
-    {
+    public function removeOrderDetail(OrderDetail $orderDetail): self {
         if ($this->orderDetails->removeElement($orderDetail)) {
             // set the owning side to null (unless already changed)
             if ($orderDetail->getProductId() === $this) {
                 $orderDetail->setProductId(null);
             }
         }
+
+        return $this;
+    }
+
+    ### -> for $created_at
+    public function getCreatedAt(): ?\DateTimeImmutable {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $created_at): self {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    ### -> for $updated_at
+    public function getUpdatedAt(): ?\DateTimeImmutable {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(?\DateTimeImmutable $updated_at): self {
+        $this->updated_at = $updated_at;
 
         return $this;
     }

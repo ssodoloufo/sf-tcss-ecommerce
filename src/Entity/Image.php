@@ -7,8 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
 #[ORM\Table(name: 'images')] // rename table whene creating migration
-class Image
-{
+class Image {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -27,54 +26,57 @@ class Image
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updated_at = null;
 
-    public function getId(): ?int
-    {
+
+    ### => constructor
+    public function __construct() {
+        $this->created_at = new \DateTimeImmutable();
+    }
+
+
+    ### => for $id
+    public function getId(): ?int {
         return $this->id;
     }
 
-    public function getName(): ?string
-    {
+    ### => for $name
+    public function getName(): ?string {
         return $this->name;
     }
 
-    public function setName(string $name): self
-    {
+    public function setName(string $name): self {
         $this->name = $name;
 
         return $this;
     }
 
-    public function getProduct(): ?Product
-    {
+    ### => for $product
+    public function getProduct(): ?Product {
         return $this->product;
     }
 
-    public function setProduct(?Product $product): self
-    {
+    public function setProduct(?Product $product): self {
         $this->product = $product;
 
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
+    ### => for $created_at
+    public function getCreatedAt(): ?\DateTimeImmutable {
         return $this->created_at;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $created_at): self
-    {
+    public function setCreatedAt(\DateTimeImmutable $created_at): self {
         $this->created_at = $created_at;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeImmutable
-    {
+    ### => for $updated_at
+    public function getUpdatedAt(): ?\DateTimeImmutable {
         return $this->updated_at;
     }
 
-    public function setUpdatedAt(?\DateTimeImmutable $updated_at): self
-    {
+    public function setUpdatedAt(?\DateTimeImmutable $updated_at): self {
         $this->updated_at = $updated_at;
 
         return $this;

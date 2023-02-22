@@ -13,16 +13,13 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Product|null findOneBy(array $criteria, array $orderBy = null)
  * @method Product[]    findAll()
  * @method Product[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
-class ProductRepository extends ServiceEntityRepository
-{
-    public function __construct(ManagerRegistry $registry)
-    {
+*/
+class ProductRepository extends ServiceEntityRepository {
+    public function __construct(ManagerRegistry $registry) {
         parent::__construct($registry, Product::class);
     }
 
-    public function save(Product $entity, bool $flush = false): void
-    {
+    public function save(Product $entity, bool $flush = false): void {
         $this->getEntityManager()->persist($entity);
 
         if ($flush) {
@@ -30,8 +27,7 @@ class ProductRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Product $entity, bool $flush = false): void
-    {
+    public function remove(Product $entity, bool $flush = false): void {
         $this->getEntityManager()->remove($entity);
 
         if ($flush) {
@@ -41,9 +37,8 @@ class ProductRepository extends ServiceEntityRepository
 
 //    /**
 //     * @return Product[] Returns an array of Product objects
-//     */
-//    public function findByExampleField($value): array
-//    {
+//    */
+//    public function findByExampleField($value): array {
 //        return $this->createQueryBuilder('p')
 //            ->andWhere('p.exampleField = :val')
 //            ->setParameter('val', $value)
@@ -54,8 +49,7 @@ class ProductRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Product
-//    {
+//    public function findOneBySomeField($value): ?Product {
 //        return $this->createQueryBuilder('p')
 //            ->andWhere('p.exampleField = :val')
 //            ->setParameter('val', $value)

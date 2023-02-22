@@ -14,15 +14,12 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Order[]    findAll()
  * @method Order[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class OrderRepository extends ServiceEntityRepository
-{
-    public function __construct(ManagerRegistry $registry)
-    {
+class OrderRepository extends ServiceEntityRepository {
+    public function __construct(ManagerRegistry $registry) {
         parent::__construct($registry, Order::class);
     }
 
-    public function save(Order $entity, bool $flush = false): void
-    {
+    public function save(Order $entity, bool $flush = false): void {
         $this->getEntityManager()->persist($entity);
 
         if ($flush) {
@@ -30,8 +27,7 @@ class OrderRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Order $entity, bool $flush = false): void
-    {
+    public function remove(Order $entity, bool $flush = false): void {
         $this->getEntityManager()->remove($entity);
 
         if ($flush) {
@@ -41,9 +37,8 @@ class OrderRepository extends ServiceEntityRepository
 
 //    /**
 //     * @return Order[] Returns an array of Order objects
-//     */
-//    public function findByExampleField($value): array
-//    {
+//    */
+//    public function findByExampleField($value): array {
 //        return $this->createQueryBuilder('o')
 //            ->andWhere('o.exampleField = :val')
 //            ->setParameter('val', $value)
@@ -54,8 +49,7 @@ class OrderRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Order
-//    {
+//    public function findOneBySomeField($value): ?Order {
 //        return $this->createQueryBuilder('o')
 //            ->andWhere('o.exampleField = :val')
 //            ->setParameter('val', $value)

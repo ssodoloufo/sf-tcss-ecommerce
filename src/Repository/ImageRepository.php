@@ -13,16 +13,13 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Image|null findOneBy(array $criteria, array $orderBy = null)
  * @method Image[]    findAll()
  * @method Image[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
-class ImageRepository extends ServiceEntityRepository
-{
-    public function __construct(ManagerRegistry $registry)
-    {
+*/
+class ImageRepository extends ServiceEntityRepository {
+    public function __construct(ManagerRegistry $registry) {
         parent::__construct($registry, Image::class);
     }
 
-    public function save(Image $entity, bool $flush = false): void
-    {
+    public function save(Image $entity, bool $flush = false): void {
         $this->getEntityManager()->persist($entity);
 
         if ($flush) {
@@ -30,8 +27,7 @@ class ImageRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Image $entity, bool $flush = false): void
-    {
+    public function remove(Image $entity, bool $flush = false): void {
         $this->getEntityManager()->remove($entity);
 
         if ($flush) {
@@ -41,9 +37,8 @@ class ImageRepository extends ServiceEntityRepository
 
 //    /**
 //     * @return Image[] Returns an array of Image objects
-//     */
-//    public function findByExampleField($value): array
-//    {
+//    */
+//    public function findByExampleField($value): array {
 //        return $this->createQueryBuilder('i')
 //            ->andWhere('i.exampleField = :val')
 //            ->setParameter('val', $value)
@@ -54,8 +49,7 @@ class ImageRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Image
-//    {
+//    public function findOneBySomeField($value): ?Image {
 //        return $this->createQueryBuilder('i')
 //            ->andWhere('i.exampleField = :val')
 //            ->setParameter('val', $value)

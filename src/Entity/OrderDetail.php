@@ -24,49 +24,46 @@ class OrderDetail {
     #[ORM\Column]
     private ?int $price = null;
 
-    public function getOrderId(): ?Order
-    {
+
+    ### => for $id for order_id
+    public function getOrderId(): ?Order {
         return $this->order;
     }
 
-    public function setOrderId(?Order $order): self
-    {
+    public function setOrderId(?Order $order): self {
         $this->order = $order;
 
         return $this;
     }
 
-    public function getProductId(): ?Product
-    {
+    ### => for $product_id
+    public function getProductId(): ?Product {
         return $this->product;
     }
 
-    public function setProductId(?Product $product): self
-    {
+    public function setProductId(?Product $product): self {
         $this->product = $product;
 
         return $this;
     }
 
-    public function getQuantity(): ?int
-    {
+    ### => for $quantity
+    public function getQuantity(): ?int {
         return $this->quantity;
     }
 
-    public function setQuantity(int $quantity): self
-    {
+    public function setQuantity(int $quantity): self {
         $this->quantity = $quantity;
 
         return $this;
     }
 
-    public function getPrice(): ?int
-    {
+    ### => for $price
+    public function getPrice(): ?int {
         return $this->price;
     }
 
-    public function setPrice(int $price): self
-    {
+    public function setPrice(int $price): self {
         $this->price = $price;
 
         return $this;
